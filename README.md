@@ -1,36 +1,15 @@
 # Junior Tester
 
-#### Technical knowlade:
+#### Technical knowlade: | #### Skills:
+                         |
+JIRA, SQL                |Precision
+Selenium WebDriver       |Tolerance for monotony
+SoapUI, Zephyr           |Empathy
+Python, PyTest           |Rule-following
+Allure,                  |Patience
+Git, GitHub              |Communication
+Postman, JMeter          |Time management
 
-JIRA, SQL
-
-Selenium WebDriver
-
-SoapUI, Zephyr
-
-Python, PyTest
-
-Allure,
-
-Git, GitHub
-
-Postman, JMeter
-
-#### Skills:
-
-Precision
-
-Tolerance for monotony
-
-Empathy
-
-Rule-following
-
-Patience
-
-Communication
-
-Time management
 
 ## Education
 - PROGmasters Manual and Automated Software Testing | 2023 - 2024							       		
@@ -39,7 +18,7 @@ Time management
 
 ## Work Experience
 **Junior tester
-2024 - Present, Interprognet Bt..**
+2024 - Present, Interprognet Bt.**
 - Manual testing of websites, which includes logging, recording error messages, tracking errors and checking for fixes.
 
 **Technologist / Customer Service Specialist

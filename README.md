@@ -1,15 +1,23 @@
 # Junior Tester
 
-#### Technical knowlade: | Skills:
-                         |
-JIRA, SQL                |Precision
-Selenium WebDriver       |Tolerance for monotony
-SoapUI, Zephyr           |Empathy
-Python, PyTest           |Rule-following
-Allure,                  |Patience
-Git, GitHub              |Communication
-Postman, JMeter          |Time management
+#### Technical knowlade:
 
+JIRA, SQL
+Selenium WebDriver
+SoapUI, Zephyr
+Python, PyTest
+Allure 
+Git, GitHub
+Postman, JMeter
+
+#### Skills:
+Precision
+Tolerance for monotony
+Empathy
+Rule-following
+Patience
+Communication
+Time management
 
 ## Education
 - PROGmasters Manual and Automated Software Testing | 2023 - 2024							       		

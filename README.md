@@ -49,7 +49,7 @@ Time management
 ### Hootel project
 During the school training at Progmasters, I took part in the Hootel project, which was divided into three sprint sections. During the continuous development of the website we used different testing techniques and test tools.
 
-#![Hootel homepages](/assets/img/hootel.png)
+#![Hootel homepages](/assets/images/hootel.png)
 
 Hootel sprint 1: Manual testing and database scanning using SQL. Recording error tickets in JIRA.
 Hootel sprint 2: The processes were supplemented with API testing using Postman and SoapUI.
@@ -58,7 +58,7 @@ Hootel sprint 3: Automate tests using PyCharm and Selenium WebDriver.
 ### Property for you
 At the end of my Progmasters schooling, I took part in the Property for you project, which consisted of two sprints. In this one, we tested the site via Docker based on the knowledge we had acquired so far.
 
-![Property for you](/assets/img/prop.png)
+![Property for you](/assets/imagesprop.png)
 
 ## Bekezdés
 

@@ -58,7 +58,7 @@ Hootel sprint 3: Automate tests using PyCharm and Selenium WebDriver.
 ### Property for you
 At the end of my Progmasters schooling, I took part in the Property for you project, which consisted of two sprints. In this one, we tested the site via Docker based on the knowledge we had acquired so far.
 
-![Property for you](/assets/imagesprop.png)
+![Property for you](/assets/images/prop.png)
 
 ## Bekezdés
 

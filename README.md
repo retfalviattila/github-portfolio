@@ -2,21 +2,21 @@
 
 #### Technical knowlade:
 
-JIRA, SQL
-Selenium WebDriver
-SoapUI, Zephyr
-Python, PyTest
-Allure 
-Git, GitHub
+JIRA, SQL,
+Selenium WebDriver,
+SoapUI, Zephyr,
+Python, PyTest,
+Allure,
+Git, GitHub,
 Postman, JMeter
 
 #### Skills:
-Precision
-Tolerance for monotony
-Empathy
-Rule-following
-Patience
-Communication
+Precision,
+Tolerance for monotony,
+Empathy,
+Rule-following,
+Patience,
+Communication,
 Time management
 
 ## Education

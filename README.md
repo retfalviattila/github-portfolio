@@ -20,29 +20,29 @@ Communication,
 Time management
 
 ## Education
-- PROGmasters Manual and Automated Software Testing | 2023 - 2024
-- BGSZC Commerce and Web Store Technician         	| 2020 - 2021
-- Gundel Károly Vocational School Graduation        | 2004 - 2011
+PROGmasters Manual and Automated Software Testing | 2023 - 2024
+BGSZC Commerce and Web Store Technician         	| 2020 - 2021
+Gundel Károly Vocational School Graduation        | 2004 - 2011
 
 ## Work Experience
-**Junior tester
-2024 - Present, Interprognet Bt.**
+**Junior tester**
+**2024 - Present, Interprognet Bt.**
 - Manual testing of websites, which includes logging, recording error messages, tracking errors and checking for fixes.
 
-**Technologist / Customer Service Specialist
-2022 - Present, Master Martini Hungary Kft.**
+**Technologist / Customer Service Specialist**
+**2022 - Present, Master Martini Hungary Kft.**
 - Managed client inquiries and product promotions with a focus on quality assurance.
 
-**Wholesale Assistant / Salesman
-2020 - 2022, Reflexshop Kft.**
+**Wholesale Assistant / Salesman**
+**2020 - 2022, Reflexshop Kft.**
 - Led store operations and marketing strategies to enhance efficiency and customer engagement.
 
-**Technologist / Client Relations
-2017 - 2020, König-Units Kft.**
+**Technologist / Client Relations**
+**2017 - 2020, König-Units Kft.**
 - Manage to contact with partners in person, by phone and e-mail, coordination of presentations, resolving complaints and problems.
 
-**Pastry Chef
-2011 - 2017, Andrész Cukrászda**
+**Pastry Chef**
+**2011 - 2017, Andrész Cukrászda**
 - Working independently and collaboratively with teammates across all aspects of confectionery.
 
 ## Projects

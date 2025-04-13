@@ -20,8 +20,8 @@ Communication,
 Time management
 
 ## Education
-- PROGmasters Manual and Automated Software Testing | 2023 - 2024							       		
-- BGSZC Commerce and Web Store Technician         	| 2020 - 2021		        		
+- PROGmasters Manual and Automated Software Testing | 2023 - 2024
+- BGSZC Commerce and Web Store Technician         	| 2020 - 2021
 - Gundel Károly Vocational School Graduation        | 2004 - 2011
 
 ## Work Experience

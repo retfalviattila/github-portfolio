@@ -1,6 +1,6 @@
 # Junior Tester
 
-#### Technical knowlade: | #### Skills:
+#### Technical knowlade: | Skills:
                          |
 JIRA, SQL                |Precision
 Selenium WebDriver       |Tolerance for monotony

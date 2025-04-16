@@ -63,4 +63,4 @@ At the end of my Progmasters schooling, I took part in the Property for you proj
 ## Bekezdés
 
 ## Bekezdés
-<a href="{{https://www.linkedin.com/in/attila-retfalvi/}}" target="_blank">LinkedIn profilom</a>
+<a href="{{ site.linkedin_url }}" target="_blank">LinkedIn profilom</a>

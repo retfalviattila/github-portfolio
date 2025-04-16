@@ -57,6 +57,7 @@ During the school training at Progmasters, I took part in the Hootel project, wh
 Hootel sprint 1: Manual testing and database scanning using SQL. Recording error tickets in JIRA.<br />
 Hootel sprint 2: The processes were supplemented with API testing using Postman and SoapUI.<br />
 Hootel sprint 3: Automate tests using PyCharm and Selenium WebDriver.<br />
+[LinkedIn profilom](https://github.com/retfalviattila/github-portfolio/blob/main/assets/scripts/Hootel3)<br />
 
 ### Property for you
 At the end of my Progmasters schooling, I took part in the Property for you project, which consisted of two sprints. In this one, we tested the site via Docker based on the knowledge we had acquired so far.

@@ -25,7 +25,7 @@ BGSZC Commerce and Web Store Technician         	| 2020 - 2021<br />
 Gundel Károly Vocational School Graduation        | 2004 - 2011<br />
 
 ## Certification
-ISTQB exam - Certified Tester Foundation Level
+ISTQB exam - Certified Tester Foundation Level | 2024
 
 ## Work Experience
 **Junior tester**<br />

@@ -1,0 +1,318 @@
+'''
+http://hotel-v3.progmasters.hu/
+
+Automatizáljuk le az alábbi feladatokat - minden lépés egy tesztesetként jelenjen meg (pytest és selenium használatával):
+1) Ellenőrizzük le az oldal megnyitása után a betöltődést.
+2) Ellenőrizzük le, hogy a Népszerű ajánlatok, a Legkedvezőbb ajánlatok és az Aktuális ajánlatok között pontosan 4 hotel jelenik meg.
+3) Ellenőrizzük le a regisztráció folyamatát negatív ágon, vizsgáljuk meg a hibaüzenetek megjelenését.
+4) Ellenőrizzük le a keresés funkciót: keresési feltételek megadása után ellenőrizzük le a lista elemek változását.
+5) Ellenőrizzük le a foglalás teljes folyamatát.
+6) Ellenőrizzük le a leadott foglalás megjelenését a Foglalásaim menüpont alatt. Hasonlítsuk össze a megjelenő adatokat a foglaláskor leadott adatokkal.
+
+'''
+import time
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import allure
+from selenium.webdriver.support.relative_locator import locate_with
+from selenium.webdriver.support.ui import Select
+import pytest
+
+
+class TestHootel(object):
+    def setup_method(self):
+        URL = 'http://hotel-v3.progmasters.hu/'
+        options = Options()
+        options.add_argument('window-position=2400,0')
+        options.add_experimental_option("detach", True)
+        self.browser = webdriver.Chrome(options=options)
+        self.browser.get(URL)
+        self.browser.maximize_window()
+        assert self.browser.current_url == 'http://hotel-v3.progmasters.hu/'
+
+    def teardown_method(self):
+        self.browser.quit()
+
+# 1) Ellenőrizzük le az oldal megnyitása után a betöltődést.
+
+    @allure.title("Hootel oldal megnyitása")
+    @allure.tag("Hootel", "oldal", "megnyitás", "betöltődés")
+    @allure.description("Az oldal betöltődését vizsgálom.")
+    def test_hootel_openpage(self):
+        wait = WebDriverWait(self.browser, 5)
+        url = wait.until(EC.url_matches(('http://hotel-v3.progmasters.hu/')))
+
+        logo = self.browser.find_element(By.ID, 'nav-index').get_attribute('class')
+
+        assert url == True
+        assert logo == 'navbar-brand'
+
+# 2) Ellenőrizzük le, hogy a Népszerű ajánlatok, a Legkedvezőbb ajánlatok és az Aktuális ajánlatok között pontosan 4 hotel jelenik meg.
+
+    @allure.title("Ajánlatok ellenőrzése")
+    @allure.tag("Hootel", "Népszerű", "Legkedvezőbb", "Aktuális", "ajánlatok")
+    @allure.description("A kezdőoldalon az ajánlatokat vizsgálom, hogy mindegyik pontosan 4 db-ot tartalmaz.")
+    def test_offers(self):
+        popular_offer = self.browser.find_elements(By.XPATH, '//div[@class="d-flex flex-wrap justify-content-between"][1]/div')
+        popular_offer_count = len(popular_offer)
+        assert popular_offer_count == 4
+
+        favorable_offer = self.browser.find_elements(By.XPATH, '//div[@class="d-flex flex-wrap justify-content-between"][2]/div')
+        favorable_offer_count = len(favorable_offer)
+        assert favorable_offer_count == 4
+
+        current_offer = self.browser.find_elements(By.XPATH, '//div[@class="d-flex flex-wrap justify-content-between"][3]/div')
+        current_offer_count = len(current_offer)
+        assert current_offer_count == 4
+
+# 3) Ellenőrizzük le a regisztráció folyamatát negatív ágon, vizsgáljuk meg a hibaüzenetek megjelenését.
+
+    @allure.title("Regisztráció negatív ágon")
+    @allure.tag("regisztráció", "negatív", "ág", "hibaüzenet")
+    @allure.description("A regisztráció negatív ági részét vizsgálom.")
+    def test_registration_neg(self):
+        reg_lst = self.browser.find_element(By.ID, 'dropbar')
+        reg_lst.click()
+
+        h_owner = self.browser.find_element(By.CLASS_NAME, 'dropdown-item')
+        h_owner.click()
+
+        input_fields = self.browser.find_elements(By.XPATH, '//input[@class="form-control ng-untouched ng-pristine ng-invalid"]')
+        submit_butn = self.browser.find_element(By.NAME, 'submit')
+
+        for ures in input_fields:
+            ures.send_keys('')
+            submit_butn.click()
+
+        warning_msg_all = self.browser.find_elements(By.XPATH, '//small[@class="text-danger ng-star-inserted"]')
+        warning_msg_all_count = len(warning_msg_all)
+        assert warning_msg_all_count == 5
+
+        # wtext = self.browser.find_element(By.XPATH, '//small[@class="text-danger ng-star-inserted"]')
+        # print(wtext.text)
+
+        warning_set = set()
+        for szoveg in self.browser.find_elements(By.XPATH, '//small[@class="text-danger ng-star-inserted"]'):
+            warning_set.add(szoveg.text)
+
+        assert 'Kérlek add meg a vezetékneved!' in warning_set
+        assert 'Kérlek add meg az utóneved!' in warning_set
+        assert 'Kérlek add meg a címed!' in warning_set
+        assert 'Kérlek írd be az email címed!' in warning_set
+        assert 'Kérlek írd be jelszót!' in warning_set
+
+# 4) Ellenőrizzük le a keresés funkciót: keresési feltételek megadása után ellenőrizzük le a lista elemek változását.
+    @allure.title("Keresés funkció ellenőrzése")
+    @allure.tag("keresés", "funkció")
+    @allure.description("A hotelek listáját ellenőrzöm, miután módosítottam a feltételeken.")
+    def test_search_function(self):
+        hotel_list_btn = self.browser.find_element(By.XPATH, '//button[@class="btn btn-outline-primary btn-block"]')
+        hotel_list_btn.click()
+
+        basic_hotel_list = list()
+        hotel_list = WebDriverWait(self.browser, 5, 0.5).until(EC.presence_of_all_elements_located((By.XPATH, '//h4[@style="cursor: pointer"]')))
+        for element in hotel_list:
+            basic_hotel_list.append(element.text)
+
+        basic_url = self.browser.current_url
+
+        number_of_guests = self.browser.find_element(By.ID, 'numberOfGuests')
+        number_of_guests.send_keys(2)
+        calendar = self.browser.find_element(By.XPATH, '//input[@class="ng2-flatpickr-input flatpickr-input"]')
+        calendar.click()
+
+        date = self.browser.find_element(By.XPATH, '//ng2-flatpickr')
+        date.click()
+
+        year = self.browser.find_elements(By.XPATH, '//input[@class="numInput cur-year"]')[1]
+        year.clear()
+        year.send_keys(2025)
+        day1 = self.browser.find_element(By.XPATH, '//span[@class="flatpickr-day " and @aria-label="February 23, 2025"]')
+        day1.click()
+        day2 = self.browser.find_element(By.XPATH, '//span[@class="flatpickr-day" and @aria-label="February 25, 2025"]')
+        day2.click()
+
+        checkbox_list = self.browser.find_elements(By.XPATH, '//input[@type="checkbox"]')
+        for checkbox in checkbox_list:
+            checkbox.click()
+            assert checkbox.is_selected()
+
+        travel_date = self.browser.find_element(By.XPATH, '//input[@class="ng2-flatpickr-input flatpickr-input"]')
+        td = travel_date.get_attribute("value")
+        assert td == "2025-02-23 to 2025-02-25"
+
+        src_btn = self.browser.find_element(By.XPATH, '//button[@class="btn btn-primary mr-4"]')
+        src_btn.click()
+
+        updated_hotel_list = list()
+        hotel_list = WebDriverWait(self.browser, 5, 0.5).until(EC.presence_of_all_elements_located((By.XPATH, '//h4[@style="cursor: pointer"]')))
+        for element in hotel_list:
+            updated_hotel_list.append(element.text)
+
+        updated_url = self.browser.current_url
+
+        assert basic_hotel_list != updated_hotel_list
+        assert basic_url != updated_url
+
+# 5) Ellenőrizzük le a foglalás teljes folyamatát.
+    @allure.title("A foglalás teljes folyamatának az ellenőrzése")
+    @allure.tag("foglalás", "folyamat")
+    @allure.description("A foglalás teljes folyamatának ellenőrzése.")
+    def test_reservation(self):
+        login_btn = self.browser.find_element(By.XPATH, '//a[@class="nav-link"]')
+        login_btn.click()
+
+        email_input = self.browser.find_element(By.ID, 'email')
+        email_input.send_keys('shadae.aksa@milkcreeks.com')
+
+        password_input = self.browser.find_element(By.ID, 'password')
+        password_input.send_keys('sha')
+
+        submit_btn = self.browser.find_element(By.NAME, 'submit')
+        submit_btn.click()
+
+        logout_btn = WebDriverWait(self.browser, 5, 0.5).until(EC.presence_of_element_located((By.ID, 'logout-link')))
+        assert logout_btn.text == "Kilépés"
+
+        hotel_list_btn = self.browser.find_element(By.XPATH, '//button[@class="btn btn-outline-primary btn-block"]')
+        hotel_list_btn.click()
+        hotel_list_url = self.browser.current_url
+        assert 'http://hotel-v3.progmasters.hu/hotel' == hotel_list_url
+
+        first_hotel = WebDriverWait(self.browser, 5, 0.5).until(EC.presence_of_all_elements_located((By.XPATH, '//button[@class="btn btn-outline-primary"]')))
+        time.sleep(1)
+        first_hotel[0].click()
+        first_hotel_url = self.browser.current_url
+        assert 'http://hotel-v3.progmasters.hu/hotel/131' == first_hotel_url
+
+        number_of_guests = self.browser.find_element(By.ID, 'numberOfGuests')
+        number_of_guests.send_keys(2)
+        n_of_g = self.browser.find_element(By.ID, 'numberOfGuests').get_attribute('value')
+        assert n_of_g == '2'
+
+        reservation_btn = self.browser.find_element(By.XPATH, '//button[@class="btn btn-warning mr-4"]')
+        assert reservation_btn.is_enabled() == False
+
+        date = self.browser.find_element(By.XPATH, '//ng2-flatpickr')
+        date.click()
+        year = self.browser.find_elements(By.XPATH, '//input[@class="numInput cur-year"]')[2]
+        year.clear()
+        year.send_keys(2025)
+        day1 = self.browser.find_element(By.XPATH,'//span[@class="flatpickr-day " and @aria-label="February 23, 2025"]')
+        day1.click()
+        day2 = self.browser.find_element(By.XPATH, '//span[@class="flatpickr-day" and @aria-label="February 25, 2025"]')
+        day2.click()
+        travel_date = self.browser.find_element(By.XPATH, '//input[@class="ng2-flatpickr-input flatpickr-input ng-star-inserted"]')
+        td = travel_date.get_attribute("value")
+        assert td == "2025-02-23 to 2025-02-25"
+        reservation_btn = self.browser.find_element(By.XPATH, '//button[@class="btn btn-warning mr-4"]')
+        assert reservation_btn.is_enabled() == False
+
+        counter = 0
+        checkbox_list = self.browser.find_elements(By.XPATH, '//input[@type="checkbox"]')
+        for checkbox in checkbox_list:
+            checkbox.click()
+            counter += 1
+            if counter == 5:
+                break
+            assert checkbox.is_selected()
+
+        reservation_btn = self.browser.find_element(By.XPATH, '//button[@class="btn btn-warning mr-4"]')
+        assert reservation_btn.is_enabled() == False
+
+        driver = webdriver.Chrome()
+        driver.get('http://hotel-v3.progmasters.hu/hotel/131')
+        driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
+
+        chkbox_list2 = WebDriverWait(self.browser, 5, 0.5).until(EC.presence_of_all_elements_located((By.XPATH, '//input[@type="checkbox"]')))
+        chkbox_list2[12].click()
+        assert chkbox_list2[12].is_selected()
+        time.sleep(1)
+        driver.execute_script('window.scrollTo(100, document.body.scrollHeight);')
+        assert reservation_btn.is_enabled() == True
+        reservation_btn.click()
+
+        window = self.browser.find_element(By.XPATH, '//h3[@class="modal-title"]')
+        window_name = window.text
+        assert window_name == 'Foglalás véglegesítése'
+
+        text_area = self.browser.find_element(By.ID, 'remark')
+        text_area.click()
+        text_area.send_keys('Lottó 5-ös jöhet!')
+
+        pay_btn = self.browser.find_element(By.XPATH, '//button[@class="btn btn-primary mr-4"]')
+        assert pay_btn.is_enabled() == False
+
+        aszf_box = self.browser.find_element(By.XPATH, '//input[@class="ng-untouched ng-pristine ng-invalid"]')
+        aszf_box.click()
+        assert pay_btn.is_enabled() == True
+        pay_btn.click()
+
+        successful_reservation = self.browser.find_element(By.XPATH, '//*[@class="modal-header"]')
+        successful_reservation_name = successful_reservation.text
+        assert successful_reservation_name == 'Foglalás véglegesítése\n×'
+
+        ok_btn = WebDriverWait(self.browser, 5, 0.5).until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'OK')]")))
+        ok_btn.click()
+        time.sleep(2)
+        curr_url = self.browser.current_url
+        assert curr_url == 'http://hotel-v3.progmasters.hu/hotel'
+
+        logout_btn = WebDriverWait(self.browser, 5, 0.5).until(EC.visibility_of_element_located((By.ID, 'logout-link')))
+        logout_btn.click()
+
+# 6) Ellenőrizzük le a leadott foglalás megjelenését a Foglalásaim menüpont alatt. Hasonlítsuk össze a megjelenő adatokat a foglaláskor leadott adatokkal.
+    @allure.title("A foglalás ellenőrzése.")
+    @allure.tag("foglalás", "ellenőrzés", "foglalásaim", "menüpont")
+    @allure.description("Ellenőrzöm a foglalást, a 'Foglalásaim' menüpont alatt. Végezetül törlöm a foglalást, így a teljes folymat előről indítható.")
+    def test_reservation_ok(self):
+        self.test_reservation
+        login_btn = WebDriverWait(self.browser, 5, 0.5).until(EC.presence_of_element_located((By.XPATH, '//a[@class="nav-link"]')))
+        login_btn.click()
+
+        email_input = WebDriverWait(self.browser, 5, 0.5).until(EC.presence_of_element_located((By.ID, 'email')))
+        email_input.send_keys('shadae.aksa@milkcreeks.com')
+
+        password_input = WebDriverWait(self.browser, 5, 0.5).until(EC.presence_of_element_located((By.ID, 'password')))
+        password_input.send_keys('sha')
+
+        submit_btn = WebDriverWait(self.browser, 5, 0.5).until(EC.presence_of_element_located((By.NAME, 'submit')))
+        submit_btn.click()
+
+        logout_btn = WebDriverWait(self.browser, 5, 0.5).until(EC.presence_of_element_located((By.ID, 'logout-link')))
+        assert logout_btn.text == "Kilépés"
+
+        reservation_btn = self.browser.find_element(By.ID, 'user-bookings')
+        reservation_btn.click()
+        reservation_url = self.browser.current_url
+        assert reservation_url == 'http://hotel-v3.progmasters.hu/bookings'
+        time.sleep(2)
+
+        lis = list()
+        elem = self.browser.find_elements(By.XPATH, '//*[@class="card-body"]')
+        for e in elem:
+            lis.append(e.text.replace('\n', ' '))
+
+        searchfor = 'Foglalás - kezdete: 2025. Feb 23. Sunday - vége: 2025. Feb 25. Tuesday Szállás neve: Rainbow Six Siege - Hotel - nyaraló Szállás címe: Dul1000 Duloc , Saint-Mandé, 2 Av. Pasteur, France vendégek száma: 2 fő 10 - nagyszoba, de nem twin - két ágyas twin szoba (Férőhelyek: 6)'
+        assert searchfor in lis
+
+        del_btn = self.browser.find_element(locate_with(By.TAG_NAME, 'button').to_right_of({By.XPATH: '//strong[text()="2025. Feb 25. Tuesday"]'}))
+        del_btn.click()
+
+        ok2_btn = WebDriverWait(self.browser, 5, 0.5).until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Oké')]")))
+        ok2_btn.click()
+
+        '''
+        res_list = list()
+        reservation_chk = WebDriverWait(self.browser, 5, 0.5).until(EC.visibility_of_element_located((By.XPATH, '//strong[text()="2025. Feb 23. Sunday"]')))
+        reservation_chk2 = WebDriverWait(self.browser, 5, 0.5).until(EC.visibility_of_element_located((By.XPATH, '//strong[text()="2025. Feb 25. Tuesday"]')))
+        reservation_chk3 = WebDriverWait(self.browser, 5, 0.5).until(EC.visibility_of_element_located((By.XPATH, '//strong[text()="Rainbow Six Siege - Hotel"]')))
+        res_list.append(reservation_chk)
+        res_list.append(reservation_chk2)
+        res_list.append(reservation_chk3)
+        assert len(res_list) == 3
+        '''

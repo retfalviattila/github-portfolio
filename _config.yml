@@ -1,6 +1,6 @@
 title: Attila Rétfalvi
 logo: /assets/images/me-rounded.png
 description: "I break things so users don't have to."
-linkedin_url: "https://www.linkedin.com/in/attila-retfalvi/"
+linkedin_url: https://www.linkedin.com/in/attila-retfalvi/
 show downloads: true
 theme: jekyll-theme-minimal

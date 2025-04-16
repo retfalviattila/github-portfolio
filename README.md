@@ -54,10 +54,10 @@ During the school training at Progmasters, I took part in the Hootel project, wh
 
 ![Hootel homepages](/assets/images/hootel.png)
 
-Hootel sprint 1: Manual testing and database scanning using SQL. Recording error tickets in JIRA.<br />
-Hootel sprint 2: The processes were supplemented with API testing using Postman and SoapUI.<br />
+Hootel sprint 1: Manual testing and database scanning using SQL. Recording error tickets in JIRA.<br /><br />
+Hootel sprint 2: The processes were supplemented with API testing using Postman and SoapUI.<br /><br />
 Hootel sprint 3: Automate tests using PyCharm and Selenium WebDriver.<br />
-- [One of the Hootel 3 scripts](https://github.com/retfalviattila/github-portfolio/blob/main/assets/scripts/Hootel3)<br />
+-[One of the Hootel 3 scripts](https://github.com/retfalviattila/github-portfolio/blob/main/assets/scripts/Hootel3)
 
 ### Property for you
 At the end of my Progmasters schooling, I took part in the Property for you project, which consisted of two sprints. In this one, we tested the site via Docker based on the knowledge we had acquired so far.

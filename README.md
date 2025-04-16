@@ -1,6 +1,6 @@
 # Junior Tester
 
-#### Technical knowlade:
+## Technical knowlade:
 
 JIRA, SQL,
 Selenium WebDriver,
@@ -10,7 +10,7 @@ Allure,
 Git, GitHub,
 Postman, JMeter
 
-#### Skills:
+## Skills:
 Precision,
 Tolerance for monotony,
 Empathy,
@@ -49,7 +49,7 @@ Gundel Károly Vocational School Graduation        | 2004 - 2011<br />
 ### Hootel project
 During the school training at Progmasters, I took part in the Hootel project, which was divided into three sprint sections. During the continuous development of the website we used different testing techniques and test tools.
 
-#![Hootel homepages](/assets/images/hootel.png)
+![Hootel homepages](/assets/images/hootel.png)
 
 Hootel sprint 1: Manual testing and database scanning using SQL. Recording error tickets in JIRA.<br />
 Hootel sprint 2: The processes were supplemented with API testing using Postman and SoapUI.<br />

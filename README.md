@@ -24,6 +24,9 @@ PROGmasters Manual and Automated Software Testing | 2023 - 2024<br />
 BGSZC Commerce and Web Store Technician         	| 2020 - 2021<br />
 Gundel Károly Vocational School Graduation        | 2004 - 2011<br />
 
+## Certification
+ISTQB exam - CERTIFIED TESTER FOUNDATION LEVEL
+
 ## Work Experience
 **Junior tester**<br />
 **2024 - Present, Interprognet Bt.**

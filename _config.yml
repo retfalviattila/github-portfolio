@@ -3,6 +3,6 @@ logo: /assets/images/me-rounded.png
 description: >
   I break things so users don't have to.
 
-  [LinkedIn profilom](https://www.linkedin.com/in/retfalviattila)
+  <a href="https://www.linkedin.com/in/retfalviattila" target="_blank">LinkedIn profilom</a>
 show_downloads: true
 theme: jekyll-theme-minimal

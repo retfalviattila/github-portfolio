@@ -1,6 +1,6 @@
 # Junior Tester
 
-## Technical knowlade:
+### Technical knowlade:
 
 JIRA, SQL,
 Selenium WebDriver,
@@ -10,7 +10,7 @@ Allure,
 Git, GitHub,
 Postman, JMeter
 
-## Skills:
+### Skills:
 Precision,
 Tolerance for monotony,
 Empathy,
